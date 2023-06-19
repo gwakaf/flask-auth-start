@@ -10,7 +10,6 @@ app.app_context().push()
 app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-    # 'postgresql://users_o4b2_user:UUgtQkGZFY8dbdb0psbir6YZzYgg0mkI@dpg-ci6a8s5gkuvvgcd3n4sg-a.oregon-postgres.render.com/users_o4b2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
