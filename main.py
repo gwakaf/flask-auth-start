@@ -2,13 +2,15 @@ from flask import Flask, render_template, request, url_for, redirect, flash, sen
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-
+import os
 
 app = Flask(__name__)
 app.app_context().push()
 
 app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+    # 'postgresql://users_o4b2_user:UUgtQkGZFY8dbdb0psbir6YZzYgg0mkI@dpg-ci6a8s5gkuvvgcd3n4sg-a.oregon-postgres.render.com/users_o4b2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -29,7 +31,7 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
-#Line below only required once, when creating DB. 
+# Line below only required once, when creating DB.
 # db.create_all()
 
 
